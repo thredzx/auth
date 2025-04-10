@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - Threadz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #4A00E0, #8E2DE2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .auth-box {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 16px;
+      background-color: #8E2DE2;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #6f0dbf;
+    }
+    p {
+      margin-top: 1rem;
+    }
+    a {
+      color: #8E2DE2;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-box">
+    <h2>Login to Threadz</h2>
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button onclick="logIn()">Log In</button>
+    <p>
+      Don’t have an account? <a href="signup.html">Sign Up</a>
+    </p>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAj5_azudAqwFVpxggUE6kZ9VWbMgU_P_I",
+      authDomain: "thredz-1901b.firebaseapp.com",
+      projectId: "thredz-1901b",
+      storageBucket: "thredz-1901b.firebasestorage.app",
+      messagingSenderId: "754707217410",
+      appId: "1:754707217410:web:ff8991bae537beb400fb1b"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    function logIn() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(user => {
+          alert("Welcome back!");
+          window.location.href = "dashboard.html"; // ✅ Go to dashboard
+        })
+        .catch(error => {
+          alert("Error: " + error.message);
+        });
+    }
+  </script>
+</body>
+</html>
