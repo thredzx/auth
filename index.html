@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Login - Threadz</title>
+  <title>Sign Up - Threadz</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #4A00E0, #8E2DE2);
+      background: linear-gradient(to right, #7b2ff7, #f107a3);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -39,7 +39,7 @@
       width: 100%;
       padding: 12px;
       margin-top: 16px;
-      background-color: #8E2DE2;
+      background-color: #7b2ff7;
       border: none;
       color: white;
       font-size: 16px;
@@ -47,25 +47,25 @@
       cursor: pointer;
     }
     button:hover {
-      background-color: #6f0dbf;
+      background-color: #661dde;
     }
     p {
       margin-top: 1rem;
     }
     a {
-      color: #8E2DE2;
+      color: #7b2ff7;
       text-decoration: none;
     }
   </style>
 </head>
 <body>
   <div class="auth-box">
-    <h2>Login to Threadz</h2>
+    <h2>Create Account</h2>
     <input type="email" id="email" placeholder="Email" required />
     <input type="password" id="password" placeholder="Password" required />
-    <button onclick="logIn()">Log In</button>
+    <button onclick="signUp()">Sign Up</button>
     <p>
-      Don’t have an account? <a href="signup.html">Sign Up</a>
+      Already have an account? <a href="login.html">Log In</a>
     </p>
   </div>
 
@@ -84,14 +84,14 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    function logIn() {
+    function signUp() {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
-      auth.signInWithEmailAndPassword(email, password)
+      auth.createUserWithEmailAndPassword(email, password)
         .then(user => {
-          alert("Welcome back!");
-          window.location.href = "dashboard.html"; // ✅ Go to dashboard
+          alert("Account created! You can now log in.");
+          window.location.href = "login.html";
         })
         .catch(error => {
           alert("Error: " + error.message);
