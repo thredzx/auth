@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard - Threadz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .dashboard-box {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin: 0.5rem 0;
+      color: #444;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      background: #0072ff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005dd1;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-box">
+    <h2>Welcome to your Dashboard</h2>
+    <p><strong>Email:</strong> <span id="userEmail">Loading...</span></p>
+    <p><strong>User ID:</strong> <span id="userUID">Loading...</span></p>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyAj5_azudAqwFVpxggUE6kZ9VWbMgU_P_I",
+      authDomain: "thredz-1901b.firebaseapp.com",
+      projectId: "thredz-1901b",
+      storageBucket: "thredz-1901b.firebasestorage.app",
+      messagingSenderId: "754707217410",
+      appId: "1:754707217410:web:ff8991bae537beb400fb1b"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        document.getElementById("userEmail").textContent = user.email;
+        document.getElementById("userUID").textContent = user.uid;
+      } else {
+        window.location.href = "login.html"; // Redirect if not logged in
+      }
+    });
+
+    function logout() {
+      auth.signOut().then(() => {
+        alert("Logged out!");
+        window.location.href = "login.html";
+      });
+    }
+  </script>
+</body>
+</html>
